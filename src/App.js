@@ -1,5 +1,6 @@
 import './App.css';
 import React from 'react';
+import { useState } from "react";
 import { Link }  from 'react-router-dom';
 
 const test = [
@@ -18,6 +19,8 @@ export function App() {
 }
 
 export function Test() {
+  const [result, setResult] = useState("");
+
   return(
     <div>
       <h1>Test</h1>
@@ -28,6 +31,10 @@ export function Test() {
           <Question item={item} />
         )}
       />
+      <button
+        onClick={() => setResult("Result: 3/3")}
+      >Check result</button>
+      <p>{result}</p>
     </div>
   );
 }
