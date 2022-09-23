@@ -19,6 +19,7 @@ export function App() {
 }
 
 export function Test() {
+
   const [result, setResult] = useState("");
 
   return(
@@ -28,15 +29,21 @@ export function Test() {
         data={test}
         renderEmpty={<p>No questions</p>}
         renderItem={(item) => (
-          <Question item={item} />
+          <Question 
+            item={item}
+          />
         )}
       />
       <button
-        onClick={() => setResult("Result: 3/3")}
+        onClick={() => setResult(() => GetResult())}
       >Check result</button>
       <p>{result}</p>
     </div>
   );
+}
+
+function GetResult() {
+  return "Result: 3/3";
 }
 
 function Header({description}) {
@@ -71,17 +78,44 @@ function Questions({ data, renderItem, renderEmpty }) {
 }
 
 function Question({item}) {
+  const [validResponse, setValidResponse] = useState(false);
+
+  const [checkedState, setCheckedState] = useState(
+      new Array(2).fill(false)
+  );
+
+  const handleOnChange = (position, answer, questionId) => {
+    const updatedCheckedState = checkedState.map((state, index) =>
+      index === position ? !state : state
+    );
+    
+    setCheckedState(updatedCheckedState);
+
+    const isValid = updatedCheckedState[position] === true && 
+                    test.find(x => x.id === questionId && 
+                                   x.answer === answer) !== undefined;
+
+    setValidResponse(isValid);
+  };
+
   return (
     <ul>
       <p>{item.question}</p>
-        <li>
-        <input type="checkbox" />
-        <label>{item.option1}</label>
-        </li>
-        <li>
-        <input type="checkbox" />
-        <label>{item.option2}</label>
-        </li>
+      <li>
+      <input type="checkbox" onChange={() => handleOnChange(0, item.option1, item.id)} />
+      <label>{item.option1}</label>
+      <label>
+        {checkedState[0] ? " checked" : " not checked"}
+      </label>
+      </li>
+      <li>
+      <input type="checkbox" onChange={() => handleOnChange(1, item.option2, item.id)}/>
+      <label>{item.option2}</label>
+      <label>
+        {checkedState[1] ? " checked" : " not checked"}
+      </label>
+      </li>
+      <p>{validResponse ? "OK" : "Wrong"}</p>
     </ul>
   );
 }
