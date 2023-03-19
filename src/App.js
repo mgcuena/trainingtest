@@ -96,6 +96,7 @@ function Question({item}) {
                                    x.answer === answer) !== undefined;
 
     setValidResponse(isValid);
+    item.isValid = isValid;
   };
 
   return (
