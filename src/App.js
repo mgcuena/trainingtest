@@ -4,9 +4,9 @@ import { useState } from "react";
 import { Link }  from 'react-router-dom';
 
 const test = [
-  {id: 0, question: "question1", option1: "option1", option2: "option2", answer: "option1" },
-  {id: 1, question: "question2", option1: "option1", option2: "option2", answer: "option2" },
-  {id: 2, question: "question3", option1: "option1", option2: "option2", answer: "option2" }
+  {id: 0, question: "question1", option1: "option1", option2: "option2", answer: "option1", isValid: false },
+  {id: 1, question: "question2", option1: "option1", option2: "option2", answer: "option2", isValid: false },
+  {id: 2, question: "question3", option1: "option1", option2: "option2", answer: "option2", isValid: false }
 ];
 
 export function App() {  
@@ -43,7 +43,7 @@ export function Test() {
 }
 
 function GetResult() {
-  return "Result: 3/3";
+  return "Result: " + test.length + "/" + test.filter(x => x.isValid == true).length
 }
 
 function Header({description}) {
