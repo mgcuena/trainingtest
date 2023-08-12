@@ -12,7 +12,7 @@ const test = [
 export function App() {  
   return (
     <div className="App">
-      <Header description="App for training"/>
+      <Header description="App for training V1"/>
       <Main />
     </div>
   );
