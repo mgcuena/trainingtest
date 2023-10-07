@@ -43,7 +43,7 @@ export function Test() {
 }
 
 function GetResult() {
-  return "Result: " + test.length + "/" + test.filter(x => x.isValid == true).length
+  return "Result: " + test.filter(x => x.isValid == true).length + "/" + test.length
 }
 
 function Header({description}) {
